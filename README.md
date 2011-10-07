@@ -90,10 +90,11 @@ License
 -------
 
 The [original code](http://css-tricks.com/4530-organic-tabs/) by Chris Coyier has been released under this very permissive (^^) license:
-> _(...) the idea is that you can take this, hack it to pieces, do whatever you want with it, preferably become rich and famous._
+
+> (...) the idea is that you can take this, hack it to pieces, do whatever you want with it, preferably become rich and famous.
+
 
 This modified version of organicTabs is released under the MIT license:
-
 
 > Copyright (c) 2010 Olivier Lance
 
