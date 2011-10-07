@@ -34,7 +34,7 @@
                     curListHeight = $allListWrap.height();
                 $allListWrap.height(curListHeight);
                                         
-                if ((listID != curList) && ( base.$el.find(":animated").length == 0)) {
+                if ((curList.length > 0) && (listID.length > 0) && (listID != curList) && ( base.$el.find(":animated").length === 0)) {
                                             
                     // Fade out current list
                     base.$el.find("#"+curList).fadeOut(base.options.speed, function() {
