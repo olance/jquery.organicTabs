@@ -75,14 +75,81 @@ You can also customize the animation speed:
     });
 
 
+#### Nesting tabbed areas
+
+You can nest tabbed areas using both options ```headingsSelector``` and ```contentsSelector```.
+When called on a target element, the plugin will find all anchor tags in ```li``` elements inside any element that can be found with the query ```$(targetElement).find(headingsSelector)```. It'll make those anchor tags the tab buttons/links of the tabbed area.
+The ```contentsSelector``` option is used the same way to the content container and grow/shrink it when the current tab is changed.
+
+Hence, nesting is about scoping your calls to ```organicTabs``` correctly so that one "outer" call doesn't interfere with an "inner" one.
+Here's an example of nesting:
+
+*HTML Markup*
+    <div id="tabbed-area">
+        <ul class="headings-level-1">
+            <li><a href="#featured" class="current">Featured</a></li>
+            <li><a href="#core">Core</a></li>
+            <li><a href="#classics">Classics</a></li>
+        </ul>
+
+        <div class="contents-level-1">
+            <div id="featured" class="hide">
+                <p>Featured Stuff in here!</p>
+            </div>
+
+            <div id="core" class="hide">
+                <p>Core Stuff in here!</p>
+                
+                <div id="tabbed-area-2">
+                    <ul class="headings-level-2">
+                        <li><a href="#core-1">Core 1</a></li>
+                        <li><a href="#core-2">Core 2</a></li>
+                    </ul>
+                    
+                    <div class="contents-level-2">
+                        <div id="core-1">
+                            First nested tab's content
+                        </div>
+                        <div id="core-2" class="hide">
+                            Second nested tab's content
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="classics" class="hide">
+                <p>Classic Stuff in here!</p>
+            </div>
+        </div>
+    </div>
+
+*Javascript*
+
+    // Create the outer tabbed area
+    $("tabbed-area").organicTabs({
+        headingsSelector: ".headings-level-1",
+        contentsSelector: ".contents-level-1"
+    });
+    
+    // Create the nested tabbed area
+    $("tabbed-area-2").organicTabs({
+        headingsSelector: ".headings-level-2",
+        contentsSelector: ".contents-level-2"
+    });
+
+There's a working example of this in the demo page.
+
 ### Options (and default values)
 
     {
-        fadingSpeed: 300,         // Speed of fading animations
-        fadingEasing: "swing",    // Easing used for fading animations
+        headingsSelector: ".nav",        // jQuery selector string to find headings list(s) inside the target element
+        contentsSelector: ".list-wrap",  // jQuery selector string to find contents container(s) inside the target element
       
-        sizingSpeed: 300,         // Speed of resizing animations
-        sizingEasing: "swing"     // Easing used for resizing animations
+        fadingSpeed: 300,                // Speed of fading animations
+        fadingEasing: "swing",           // Easing used for fading animations
+      
+        sizingSpeed: 300,                // Speed of resizing animations
+        sizingEasing: "swing"            // Easing used for resizing animations
     }
 
 

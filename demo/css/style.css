@@ -14,8 +14,8 @@ p { font-size: 15px; margin: 0 0 20px 0; }
 h1 { font: bold 40px Sans-Serif; margin: 0 0 20px 0; }
 
 /* Generic Utility */
-.hide { position: absolute; top: -9999px; left: -9999px; }
-
+.hide { display: none; }
+.clear { clear: both; }
 
 /* Specific to example one */
 
@@ -55,3 +55,24 @@ h1 { font: bold 40px Sans-Serif; margin: 0 0 20px 0; }
 
 #example-two li a.current,#example-two li a.current:hover { background-color: #eee !important; color: black; }
 #example-two .nav li a:hover, #example-two .nav li a:focus { background: #999;}
+
+
+/* Specific to example three */
+
+#example-three .contents-level-1 { background: #eee; padding: 10px; margin: 0 0 15px 0; }
+
+#example-three ul { list-style: none; }
+#example-three ul li a { display: block; border-bottom: 1px solid #666; padding: 4px; color: #666; }
+#example-three ul li a:hover { background: #333; color: white; }
+#example-three ul li:last-child a { border: none; }
+
+#example-three .nav { overflow: hidden; }
+#example-three .nav li { width: 97px; float: left; margin: 0 10px 0 0; }
+#example-three .nav li.last { margin-right: 0; }
+#example-three .nav li a { display: block; padding: 5px; background: #666; color: white; font-size: 10px; text-align: center; border: 0; }
+
+#example-three li a.current,#example-three li a.current:hover { background-color: #eee !important; color: black; }
+#example-three .nav li a:hover, #example-three .nav li a:focus { background: #999;}
+
+#example-three .contents-level-1 .headings-level-2 { width: 80px; border-right: 1px solid #666; float: left; }
+#example-three .contents-level-1 .contents-level-2 { float: left; padding: 5px; }

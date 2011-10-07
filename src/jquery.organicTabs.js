@@ -4,12 +4,12 @@
     
         var base = this;
         base.$el = $(el);
-        base.$nav = base.$el.find(".nav");
                 
         base.init = function() {
         
             base.options = $.extend({},$.organicTabs.defaultOptions, options);
             
+            base.$nav = base.$el.find(base.options.headingsSelector);
             base.$nav.delegate("li > a", "click", function() {
             
                 // Figure out current list via CSS class
@@ -22,7 +22,7 @@
                     listID = $newList.attr("href").substring(1),
                 
                 // Set outer wrapper height to (static) height of current inner list
-                    $allListWrap = base.$el.find(".list-wrap"),
+                    $allListWrap = base.$el.find(base.options.contentsSelector),
                     curListHeight = $allListWrap.height();
                 $allListWrap.height(curListHeight);
                                         
@@ -41,7 +41,7 @@
                         }, base.options.sizingSpeed, base.options.sizingEasing);
                         
                         // Remove highlighting - Add to just-clicked tab
-                        base.$el.find(".nav li a").removeClass("current");
+                        base.$el.find(base.options.headingsSelector + " li a").removeClass("current");
                         $newList.addClass("current");
                             
                     });
@@ -58,11 +58,14 @@
     };
     
     $.organicTabs.defaultOptions = {
-        fadingSpeed: 300,         // Speed of fading animations
-        fadingEasing: "swing",    // Easing used for fading animations
+        headingsSelector: ".nav",        // jQuery selector string to find headings list(s) inside the target element
+        contentsSelector: ".list-wrap",  // jQuery selector string to find contents container(s) inside the target element
+      
+        fadingSpeed: 300,                // Speed of fading animations
+        fadingEasing: "swing",           // Easing used for fading animations
         
-        sizingSpeed: 300,         // Speed of resizing animations
-        sizingEasing: "swing"     // Easing used for resizing animations
+        sizingSpeed: 300,                // Speed of resizing animations
+        sizingEasing: "swing"            // Easing used for resizing animations
     };
     
     $.fn.organicTabs = function(options) {

@@ -20,6 +20,16 @@
                 sizingSpeed: 100
             });
     
+            // Nested tabs
+            $("#example-three").organicTabs({
+                headingsSelector: ".headings-level-1",
+                contentsSelector: ".contents-level-1"
+            });
+            
+            $("#example-three .contents-level-1").organicTabs({
+                headingsSelector: ".headings-level-2",
+                contentsSelector: ".contents-level-2"
+            });
         });
     </script>
 </head>
@@ -152,12 +162,53 @@
         		 
     		 </div> <!-- END List Wrap -->
 		 
-		 </div> <!-- END Organic Tabs (Example One) -->
+		 </div> <!-- END Organic Tabs (Example Two) -->
+	
+     <p>Below are nested tabbed areas.</p>
+	
+	   <div id="example-three">
+         <ul class="nav headings-level-1">
+             <li><a href="#featured" class="current">Featured</a></li>
+             <li><a href="#core">Core (nested tabs)</a></li>
+             <li><a href="#classics">Classics</a></li>
+         </ul>
+
+         <div class="contents-level-1">
+             <div id="featured">
+                 <p>Featured Stuff in here!</p>
+             </div>
+
+             <div id="core" class="hide">
+                 <p>Core Stuff in here!</p>
+
+                 <div id="tabbed-area-2">
+                     <ul class="headings-level-2">
+                         <li><a href="#core-1" class="current">Core 1</a></li>
+                         <li><a href="#core-2">Core 2</a></li>
+                     </ul>
+
+                     <div class="contents-level-2">
+                         <div id="core-1">
+                             First nested tab's content
+                         </div>
+                         <div id="core-2" class="hide">
+                             Second nested tab's content
+                         </div>
+                     </div>
+                     <div class="clear"></div>
+                 </div>
+             </div>
+
+             <div id="classics" class="hide">
+                 <p>Classic Stuff in here!</p>
+             </div>
+         </div>
+     </div>
+  
 	
 		 <p>This is some content below the tabs. I will be moved up or down to accommodate the tabbed area above me.</p>
 	
-	</div>
-	
+	</div>	
 </body>
 
 </html>
