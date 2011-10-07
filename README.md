@@ -85,6 +85,7 @@ Hence, nesting is about scoping your calls to ```organicTabs``` correctly so tha
 Here's an example of nesting:
 
 *HTML Markup*
+
     <div id="tabbed-area">
         <ul class="headings-level-1">
             <li><a href="#featured" class="current">Featured</a></li>
