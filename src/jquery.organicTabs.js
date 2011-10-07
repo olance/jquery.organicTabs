@@ -66,11 +66,11 @@
     };
     
     $.organicTabs.defaultOptions = {
-        fadingSpeed: 300,
-        fadingEasing: "swing",
+        fadingSpeed: 300,         // Speed of fading animations
+        fadingEasing: "swing",    // Easing used for fading animations
         
-        sizingSpeed: 300,
-        sizingEasing: "swing"
+        sizingSpeed: 300,         // Speed of resizing animations
+        sizingEasing: "swing"     // Easing used for resizing animations
     };
     
     $.fn.organicTabs = function(options) {
