@@ -10,14 +10,6 @@
         
             base.options = $.extend({},$.organicTabs.defaultOptions, options);
             
-            // Accessible hiding fix
-            $(".hide").css({
-                "position": "relative",
-                "top": 0,
-                "left": 0,
-                "display": "none"
-            }); 
-            
             base.$nav.delegate("li > a", "click", function() {
             
                 // Figure out current list via CSS class
