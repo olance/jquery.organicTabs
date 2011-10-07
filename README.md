@@ -70,14 +70,19 @@ Here's how you would call _organicTabs_ for the example above:
 You can also customize the animation speed:
 
     $("#tabbed-area").organicTabs({
-        speed: 150
+        fadingSpeed: 150,
+        sizingSpeed: 200
     });
 
 
 ### Options (and default values)
 
     {
-        speed: 300  // Speed of fade and resizing animations
+        fadingSpeed: 300,         // Speed of fading animations
+        fadingEasing: "swing",    // Easing used for fading animations
+      
+        sizingSpeed: 300,         // Speed of resizing animations
+        sizingEasing: "swing"     // Easing used for resizing animations
     }
 
 
