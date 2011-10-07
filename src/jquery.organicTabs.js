@@ -37,16 +37,16 @@
                 if ((curList.length > 0) && (listID.length > 0) && (listID != curList) && ( base.$el.find(":animated").length === 0)) {
                                             
                     // Fade out current list
-                    base.$el.find("#"+curList).fadeOut(base.options.speed, function() {
+                    base.$el.find("#"+curList).fadeOut(base.options.fadingSpeed, base.options.fadingEasing, function() {
                         
                         // Fade in new list on callback
-                        base.$el.find("#"+listID).fadeIn(base.options.speed);
+                        base.$el.find("#"+listID).fadeIn(base.options.fadingSpeed, base.options.fadingEasing);
                         
                         // Adjust outer wrapper to fit new list snuggly
                         var newHeight = base.$el.find("#"+listID).height();
                         $allListWrap.animate({
                             height: newHeight
-                        });
+                        }, base.options.sizingSpeed, base.options.sizingEasing);
                         
                         // Remove highlighting - Add to just-clicked tab
                         base.$el.find(".nav li a").removeClass("current");
@@ -57,7 +57,7 @@
                 }   
                 
                 // Don't behave like a regular link
-                // Stop propegation and bubbling
+                // Stop propagation and bubbling
                 return false;
             });
             
@@ -66,7 +66,11 @@
     };
     
     $.organicTabs.defaultOptions = {
-        "speed": 300
+        fadingSpeed: 300,
+        fadingEasing: "swing",
+        
+        sizingSpeed: 300,
+        sizingEasing: "swing"
     };
     
     $.fn.organicTabs = function(options) {
