@@ -39,7 +39,15 @@
                         $allListWrap.animate({
                             height: newHeight
                         }, base.options.sizingSpeed, base.options.sizingEasing);
-                        
+
+						if(base.options.updateAlong !== null) {
+							$(base.options.updateAlong).each(function(index, el) {
+								$(el).animate({
+									height: $(el).height() - curListHeight + newHeight
+								}, base.options.sizingSpeed,base.options.sizingEasing);
+							});
+						}
+
                         // Remove highlighting - Add to just-clicked tab
                         base.$el.find(base.options.headingsSelector + " li a").removeClass("current");
                         $newList.addClass("current");
@@ -60,6 +68,9 @@
     $.organicTabs.defaultOptions = {
         headingsSelector: ".nav",        // jQuery selector string to find headings list(s) inside the target element
         contentsSelector: ".list-wrap",  // jQuery selector string to find contents container(s) inside the target element
+
+        updateAlong: null,	      			 // Provide elements to be updated along with the regular wrapper. It's useful in
+				                    						 // nesting cases when you want a parent element to be resized correctly
       
         fadingSpeed: 300,                // Speed of fading animations
         fadingEasing: "swing",           // Easing used for fading animations

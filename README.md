@@ -140,11 +140,17 @@ Here's an example of nesting:
 
 There's a working example of this in the demo page.
 
+Moreover, the ```updateAlong``` option allows you to provide a set of elements that must be updated along with the designed container. This is very useful in nesting cases when you want 
+the containing tabbed area to grow or shrink along with the contained one.
+
 ### Options (and default values)
 
     {
         headingsSelector: ".nav",        // jQuery selector string to find headings list(s) inside the target element
         contentsSelector: ".list-wrap",  // jQuery selector string to find contents container(s) inside the target element
+      
+        updateAlong: null,	      			 // Provide elements to be updated along with the regular wrapper. It's useful in
+				                    						 // nesting cases when you want a parent element to be resized correctly
       
         fadingSpeed: 300,                // Speed of fading animations
         fadingEasing: "swing",           // Easing used for fading animations
