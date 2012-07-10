@@ -81,5 +81,17 @@
             (new $.organicTabs(this, options));
         });
     };
-    
+
+    /*
+     * Automatically apply tabs on DOM having the data-organic-tabs="organic" attribute
+     */
+    $(function () {
+        $('[data-organic-tabs="organic"]').each(function () {
+            var $tabs = $(this);
+
+            // TODO: make it possible to declare options through data-organic-tabs-* attributes?
+            $tabs.organicTabs();
+        });
+    });
+
 })(jQuery);

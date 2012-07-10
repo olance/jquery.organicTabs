@@ -74,6 +74,16 @@ You can also customize the animation speed:
         sizingSpeed: 200
     });
 
+#### To apply the default organicTabs automatically
+
+The plugin will automatically be run on tabbed areas declaring the _data-organic-tabs_ attribute as follows:
+
+    <div id="tabbed-area" data-organic-tabs="organic">
+        ...
+    </div>
+
+Default options will be used in this case.
+
 
 #### Nesting tabbed areas
 
