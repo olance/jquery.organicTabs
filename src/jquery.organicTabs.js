@@ -10,27 +10,25 @@
             base.options = $.extend({},$.organicTabs.defaultOptions, options);
             
             base.$nav = base.$el.find(base.options.headingsSelector);
-            base.$nav.delegate("li > a", "click", function() {
+            base.$nav.delegate("li a", "click", function() {
             
                 // Figure out current list via CSS class
                 var curList = base.$el.find("a.current").attr("href").substring(1),
                 
                 // List moving to
-                    $newList = $(this),
+                $newList = $(this),
                     
                 // Figure out ID of new list
-                    listID = $newList.attr("href").substring(1),
+                listID = $newList.attr("href").substring(1),
                 
                 // Set outer wrapper height to (static) height of current inner list
-                    $allListWrap = base.$el.find(base.options.contentsSelector),
-                    curListHeight = $allListWrap.height();
+                $allListWrap = base.$el.find(base.options.contentsSelector),
+                curListHeight = $allListWrap.height();
                 $allListWrap.height(curListHeight);
                                         
                 if ((curList.length > 0) && (listID.length > 0) && (listID != curList) && ( base.$el.find(":animated").length === 0)) {
-                                            
                     // Fade out current list
                     base.$el.find("#"+curList).fadeOut(base.options.fadingSpeed, base.options.fadingEasing, function() {
-                        
                         // Fade in new list on callback
                         base.$el.find("#"+listID).fadeIn(base.options.fadingSpeed, base.options.fadingEasing);
                         
@@ -51,7 +49,6 @@
                         // Remove highlighting - Add to just-clicked tab
                         base.$el.find(base.options.headingsSelector + " li a").removeClass("current");
                         $newList.addClass("current");
-                            
                     });
                     
                 }   

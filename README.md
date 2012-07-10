@@ -21,9 +21,9 @@ Here is an example of a compatible markup:
 
     <div id="tabbed-area">
         <ul class="nav">
-            <li><a href="#featured" class="current">Featured</a></li>
-            <li><a href="#core">Core</a></li>
-            <li><a href="#classics">Classics</a></li>
+            <li><h2><a href="#featured" class="current">Featured</a></h2></li>
+            <li><h2><a href="#core">Core</a></h2></li>
+            <li><h2><a href="#classics">Classics</a></h2></li>
         </ul>
 
         <div class="list-wrap">
@@ -48,7 +48,7 @@ Here are the requirements:
 
    - Tabs buttons must be listed in an (un)ordered list with the CSS class "nav" set.
 
-   - In this list, each item must contain an anchor tag which will be the clickable element that'll trigger the tab's display.
+   - In this list, each _li_ item must contain a (possibly nested) anchor tag which will be the clickable element that'll trigger the tab's display.
 
    - This anchor tags have the following requirements:
      - The currently displayed tab receives the CSS class "current". The default tab must have this class set in the markup.
