@@ -84,6 +84,21 @@ The plugin will automatically be run on tabbed areas declaring the _data-organic
 
 Default options will be used in this case.
 
+#### Triggered events
+
+The following events are triggered on the tabbed area object:
+
+##### organicTabs.changed
+Triggered when the current tab has been changed.
+
+**Arguments**: event object, new tab ID, new tab DOM element
+
+Usage sample:
+
+    $("#tabbed-area").on("organicTabs.changed", function(event, tabID, $tabEl) {
+        console.log("The tab '" + tabID + "' has been activated");
+    });
+
 
 #### Nesting tabbed areas
 
