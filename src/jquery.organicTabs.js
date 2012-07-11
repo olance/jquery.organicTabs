@@ -1,7 +1,6 @@
 (function($) {
 
     $.organicTabs = function(el, options) {
-
         var base = this;
         base.$el = $(el);
 
@@ -11,50 +10,11 @@
 
             base.$nav = base.$el.find(base.options.headingsSelector);
             base.$nav.delegate("li a", "click", function() {
-
-                // Figure out current list via CSS class
-                var curList = base.$el.find("a.current").attr("href").substring(1),
-
-                // List moving to
-                $newList = $(this),
-
                 // Figure out ID of new list
-                listID = $newList.attr("href").substring(1),
+                var listID = $(this).attr("href").substring(1);
 
-                // Set outer wrapper height to (static) height of current inner list
-                $allListWrap = base.$el.find(base.options.contentsSelector),
-                curListHeight = $allListWrap.height();
-                $allListWrap.height(curListHeight);
-
-                if ((curList.length > 0) && (listID.length > 0) && (listID != curList) && ( base.$el.find(":animated").length === 0)) {
-                    // Fade out current list
-                    base.$el.find("#"+curList).fadeOut(base.options.fadingSpeed, base.options.fadingEasing, function() {
-                        // Fade in new list on callback
-                        var $listEl = base.$el.find("#"+listID);
-                        $listEl.fadeIn(base.options.fadingSpeed, base.options.fadingEasing);
-
-                        // Adjust outer wrapper to fit new list snuggly
-                        var newHeight = $listEl.height();
-                        $allListWrap.animate({
-                            height: newHeight
-                        }, base.options.sizingSpeed, base.options.sizingEasing);
-
-						if(base.options.updateAlong !== null) {
-							$(base.options.updateAlong).each(function(index, el) {
-								$(el).animate({
-									height: $(el).height() - curListHeight + newHeight
-								}, base.options.sizingSpeed,base.options.sizingEasing);
-							});
-						}
-
-                        // Remove highlighting - Add to just-clicked tab
-                        base.$el.find(base.options.headingsSelector + " li a").removeClass("current");
-                        $newList.addClass("current");
-
-                        base.$el.triggerHandler("organicTabs.changed", [listID, $listEl]);
-                    });
-
-                }
+                // Change to tab
+                base.changeTo(listID);
 
                 // Don't behave like a regular link
                 // Stop propagation and bubbling
@@ -63,14 +23,78 @@
 
         };
         base.init();
+
+        // Save the organicTabs instance into the DOM element properties so that we can call methods on it later on
+        el.organicTabs = base;
     };
+
+    /* changeTo - Change the current tab to given tab
+     *
+     * @param   tabID   (String)  The ID of the tab to change to
+     */
+    $.organicTabs.prototype.changeTo = function(tabID) {
+        var self = this;
+
+        // Figure out current list via CSS class
+        var curList = self.currentTab();
+
+        // List moving to
+        var $newList = self.$el.find(self.options.headingsSelector + " a[href='#" + tabID + "']");
+
+        // Set outer wrapper height to (static) height of current inner list
+        var $allListWrap = self.$el.find(self.options.contentsSelector);
+        curListHeight = $allListWrap.height();
+
+        $allListWrap.height(curListHeight);
+
+        if ((curList.length > 0) && (tabID.length > 0) && (tabID != curList) && ( self.$el.find(":animated").length === 0))
+        {
+            // Fade out current list
+            self.$el.find(self.options.contentsSelector + " #" + curList).fadeOut(self.options.fadingSpeed, self.options.fadingEasing, function() {
+                // Fade in new list on callback
+                var $listEl = self.$el.find(self.options.contentsSelector + " #" + tabID);
+                $listEl.fadeIn(self.options.fadingSpeed, self.options.fadingEasing);
+
+                // Adjust outer wrapper to fit new list snuggly
+                var newHeight = $listEl.height();
+
+                if(self.options.updateAlong !== null) {
+                    $(self.options.updateAlong).each(function(index, el) {
+                        $(el).animate({
+                            height: $(el).height() - curListHeight + newHeight
+                        }, self.options.sizingSpeed,self.options.sizingEasing);
+                    });
+                }
+
+                $allListWrap.animate({
+                    height: newHeight
+                }, self.options.sizingSpeed, self.options.sizingEasing, function() {
+                    // Trigger the "tab changed" event when it's fully changed
+                    self.$el.triggerHandler("organicTabs.changed", [tabID, $listEl]);
+                });
+
+                // Remove highlighting - Add to just-clicked tab
+                self.$el.find(self.options.headingsSelector + " li a").removeClass("current");
+                $newList.addClass("current");
+            });
+        }
+    };
+
+    /* currentTab - Return the ID of the current tab
+     *
+     * @return ID of the current tab
+     */
+    $.organicTabs.prototype.currentTab = function() {
+        return this.$el.find("a.current").attr("href").substring(1);
+    };
+
 
     $.organicTabs.defaultOptions = {
         headingsSelector: ".nav",        // jQuery selector string to find headings list(s) inside the target element
         contentsSelector: ".list-wrap",  // jQuery selector string to find contents container(s) inside the target element
 
-        updateAlong: null,	      			 // Provide elements to be updated along with the regular wrapper. It's useful in
-				                    						 // nesting cases when you want a parent element to be resized correctly
+        updateAlong: null,	      		 // Provide elements to be updated along with the regular wrapper. It's useful in
+        // nesting cases when you want a parent element to be resized correctly
 
         fadingSpeed: 300,                // Speed of fading animations
         fadingEasing: "swing",           // Easing used for fading animations
@@ -79,9 +103,22 @@
         sizingEasing: "swing"            // Easing used for resizing animations
     };
 
-    $.fn.organicTabs = function(options) {
+    $.fn.organicTabs = function(args) {
+        // Turn arguments into an Array object
+        var organicArgs = Array.prototype.slice.call(arguments);
+
         return this.each(function() {
-            (new $.organicTabs(this, options));
+            // Initialize the tabs if first arg is not a string
+            if (typeof args !== "string")
+            {
+                new $.organicTabs(this, args);
+            }
+            // If it is a string, it's a method name, so we invoke it
+            else
+            {
+                methodName = organicArgs.shift();
+                this.organicTabs[methodName].apply(this.organicTabs, organicArgs);
+            }
         });
     };
 
