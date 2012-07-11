@@ -74,6 +74,22 @@ You can also customize the animation speed:
         sizingSpeed: 200
     });
 
+#### Options (and default values)
+
+    {
+        headingsSelector: ".nav",        // jQuery selector string to find headings list(s) inside the target element
+        contentsSelector: ".list-wrap",  // jQuery selector string to find contents container(s) inside the target element
+
+        updateAlong: null,	      	     // Provide elements to be updated along with the regular wrapper. It's useful in
+				                    	 // nesting cases when you want a parent element to be resized correctly
+
+        fadingSpeed: 300,                // Speed of fading animations
+        fadingEasing: "swing",           // Easing used for fading animations
+
+        sizingSpeed: 300,                // Speed of resizing animations
+        sizingEasing: "swing"            // Easing used for resizing animations
+    }
+
 #### To apply the default organicTabs automatically
 
 The plugin will automatically be run on tabbed areas declaring the _data-organic-tabs_ attribute as follows:
@@ -84,11 +100,39 @@ The plugin will automatically be run on tabbed areas declaring the _data-organic
 
 Default options will be used in this case.
 
-#### Triggered events
+
+### Instance methods
+
+Once *organicTabs* has been initialized on a DOM element, you can call methods on the same element to get or set the state
+of the tabs. This is done much like with jQueryUI Widgets, for instance to get the current tab ID:
+
+    var tabID = $("#tabbed-area").organicTabs("currentTab");
+
+The available methods are:
+
+#### currentTab
+
+Get the ID of the current tab
+
+**Parameters**: none
+**Returns**: The ID of the currently selected tab
+
+#### changeTo(tabID)
+
+Open another tab
+
+**Parameters**:
+
+    tabID   (String)    The ID of the tab to activate. If it's already the current tab, nothing will happen.
+
+**Returns**: nothing
+
+
+### Triggered events
 
 The following events are triggered on the tabbed area object:
 
-##### organicTabs.changed
+#### organicTabs.changed
 Triggered when the current tab has been changed.
 
 **Arguments**: event object, new tab ID, new tab DOM element
@@ -100,89 +144,9 @@ Usage sample:
     });
 
 
-#### Nesting tabbed areas
+### Nesting tabbed areas
 
-You can nest tabbed areas using both options ```headingsSelector``` and ```contentsSelector```.
-When called on a target element, the plugin will find all anchor tags in ```li``` elements inside any element that can be found with the query ```$(targetElement).find(headingsSelector)```. It'll make those anchor tags the tab buttons/links of the tabbed area.
-The ```contentsSelector``` option is used the same way to the content container and grow/shrink it when the current tab is changed.
-
-Hence, nesting is about scoping your calls to ```organicTabs``` correctly so that one "outer" call doesn't interfere with an "inner" one.
-Here's an example of nesting:
-
-*HTML Markup*
-
-    <div id="tabbed-area">
-        <ul class="headings-level-1">
-            <li><a href="#featured" class="current">Featured</a></li>
-            <li><a href="#core">Core</a></li>
-            <li><a href="#classics">Classics</a></li>
-        </ul>
-
-        <div class="contents-level-1">
-            <div id="featured" class="hide">
-                <p>Featured Stuff in here!</p>
-            </div>
-
-            <div id="core" class="hide">
-                <p>Core Stuff in here!</p>
-                
-                <div id="tabbed-area-2">
-                    <ul class="headings-level-2">
-                        <li><a href="#core-1">Core 1</a></li>
-                        <li><a href="#core-2">Core 2</a></li>
-                    </ul>
-                    
-                    <div class="contents-level-2">
-                        <div id="core-1">
-                            First nested tab's content
-                        </div>
-                        <div id="core-2" class="hide">
-                            Second nested tab's content
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="classics" class="hide">
-                <p>Classic Stuff in here!</p>
-            </div>
-        </div>
-    </div>
-
-*Javascript*
-
-    // Create the outer tabbed area
-    $("tabbed-area").organicTabs({
-        headingsSelector: ".headings-level-1",
-        contentsSelector: ".contents-level-1"
-    });
-    
-    // Create the nested tabbed area
-    $("tabbed-area-2").organicTabs({
-        headingsSelector: ".headings-level-2",
-        contentsSelector: ".contents-level-2"
-    });
-
-There's a working example of this in the demo page.
-
-Moreover, the ```updateAlong``` option allows you to provide a set of elements that must be updated along with the designed container. This is very useful in nesting cases when you want 
-the containing tabbed area to grow or shrink along with the contained one.
-
-### Options (and default values)
-
-    {
-        headingsSelector: ".nav",        // jQuery selector string to find headings list(s) inside the target element
-        contentsSelector: ".list-wrap",  // jQuery selector string to find contents container(s) inside the target element
-      
-        updateAlong: null,	      			 // Provide elements to be updated along with the regular wrapper. It's useful in
-				                    						 // nesting cases when you want a parent element to be resized correctly
-      
-        fadingSpeed: 300,                // Speed of fading animations
-        fadingEasing: "swing",           // Easing used for fading animations
-      
-        sizingSpeed: 300,                // Speed of resizing animations
-        sizingEasing: "swing"            // Easing used for resizing animations
-    }
+See wiki page [*How to nest tabs?*](https://github.com/olance/jquery.organicTabs/wiki/How-to-nest-tabs%3F)
 
 
 Credits
