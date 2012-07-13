@@ -86,7 +86,7 @@
      */
     $.organicTabs.prototype.currentTab = function() {
         return this.$el.find("a.current").attr("href").substring(1);
-    };
+    }
 
 
     $.organicTabs.defaultOptions = {
@@ -107,19 +107,20 @@
         // Turn arguments into an Array object
         var organicArgs = Array.prototype.slice.call(arguments);
 
-        return this.each(function() {
-            // Initialize the tabs if first arg is not a string
-            if (typeof args !== "string")
-            {
+        // Initialize the tabs if first arg is not a string
+        if (typeof args !== "string")
+        {
+            return this.each(function() {
                 new $.organicTabs(this, args);
-            }
-            // If it is a string, it's a method name, so we invoke it
-            else
-            {
-                methodName = organicArgs.shift();
-                this.organicTabs[methodName].apply(this.organicTabs, organicArgs);
-            }
-        });
+            });
+        }
+        // If it is a string, it's a method name, so we invoke it on the first matched object
+        // and return the result of the function call
+        else
+        {
+            methodName = organicArgs.shift();
+            return this[0].organicTabs[methodName].apply(this[0].organicTabs, organicArgs);
+        }
     };
 
     /*
